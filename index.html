@@ -164,6 +164,7 @@
         }
         .language-selector {
             position: relative;
+            cursor: pointer;
         }
         .language-dropdown {
             display: none;
@@ -183,7 +184,7 @@
             background-color: #1C1C1E;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .language-selector:hover .language-dropdown {
+        .language-selector.active .language-dropdown {
             display: block;
         }
         .language-option {
@@ -214,8 +215,8 @@
                     <span class="lang-en">Summer Games Festival</span>
                     <span class="lang-zh hidden">夏日游戏节</span>
                 </h1>
-                <div class="language-selector">
-                    <button class="flex items-center bg-white/30 hover:bg-white/40 px-4 py-2 rounded-full text-sm font-medium">
+                <div class="language-selector" id="language-selector">
+                    <button class="flex items-center bg-white/30 hover:bg-white/40 px-4 py-2 rounded-full text-sm font-medium" id="language-toggle">
                         <span id="current-language">English</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -379,6 +380,23 @@
         let currentGameIframe = null;
         let currentGameSlug = null;
 
+        // 语言选择器功能
+        const languageToggle = document.getElementById('language-toggle');
+        const languageSelector = document.getElementById('language-selector');
+        
+        // 点击语言选择按钮
+        languageToggle.addEventListener('click', function(e) {
+            e.stopPropagation(); // 阻止事件冒泡
+            languageSelector.classList.toggle('active');
+        });
+        
+        // 点击文档其他部分关闭下拉菜单
+        document.addEventListener('click', function(e) {
+            if (!languageSelector.contains(e.target)) {
+                languageSelector.classList.remove('active');
+            }
+        });
+        
         // 切换语言
         function switchLanguage(lang) {
             currentLanguage = lang;
@@ -393,6 +411,9 @@
             document.querySelectorAll(`.lang-${lang}`).forEach(el => {
                 el.classList.remove('hidden');
             });
+            
+            // 关闭下拉菜单
+            languageSelector.classList.remove('active');
 
             // 重新渲染游戏卡片以更新语言
             renderGames(currentGames);
@@ -400,7 +421,8 @@
 
         // 添加语言切换事件监听
         document.querySelectorAll('.language-option').forEach(option => {
-            option.addEventListener('click', function() {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation(); // 阻止事件冒泡
                 const lang = this.getAttribute('data-lang');
                 switchLanguage(lang);
             });
