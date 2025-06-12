@@ -262,7 +262,7 @@
     </header>
 
     <main class="container mx-auto px-4 py-8 md:px-8">
-        <!-- 首页置顶游戏 - Crazy Office: Slap and Smash! -->
+        <!-- 首页置顶游戏 - Piece of Cake: Merge and Bake -->
         <section class="mb-12">
             <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue dark:text-apple-teal">
                 <span class="lang-en">Featured Game</span>
@@ -271,9 +271,9 @@
             <div class="game-container bg-apple-gray-200 dark:bg-apple-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <iframe 
                     id="featured-game-iframe"
-                    src="https://www.crazygames.com/embed/crazy-office-slap-and-smash" 
+                    src="https://www.crazygames.com/embed/piece-of-cake-merge-and-bake" 
                     class="game-iframe"
-                    title="Crazy Office: Slap and Smash!"
+                    title="Piece of Cake: Merge and Bake"
                     allow="fullscreen; gamepad *;"
                     loading="lazy">
                 </iframe>
@@ -294,14 +294,14 @@
                 </div>
             </div>
             <div class="bg-white dark:bg-apple-gray-800 p-4 rounded-lg shadow-md mt-4">
-                <h3 class="text-xl font-bold">Crazy Office: Slap and Smash!</h3>
+                <h3 class="text-xl font-bold">Piece of Cake: Merge and Bake</h3>
                 <div class="flex gap-2 mt-1">
-                    <span class="category-badge bg-apple-red text-white">Action</span>
                     <span class="category-badge bg-apple-blue text-white">Casual</span>
+                    <span class="category-badge bg-apple-purple text-white">Puzzle</span>
                 </div>
                 <p class="mt-3">
-                    <span class="lang-en">Experience the hilarious chaos of office life gone crazy! Slap, smash, and cause mayhem in this action-packed game.</span>
-                    <span class="lang-zh hidden">体验办公室生活的疯狂混乱！在这款充满动感的游戏中尽情扇巴掌、砸东西，制造混乱。</span>
+                    <span class="lang-en">Combine and merge ingredients to create delicious cakes in this addictive puzzle game. Bake your way to success!</span>
+                    <span class="lang-zh hidden">在这款令人上瘾的益智游戏中，结合并合并食材以制作美味蛋糕。烘焙你的成功之路！</span>
                 </p>
             </div>
         </section>
@@ -431,14 +431,6 @@
         // 游戏数据（中英文）
         const gamesData = [
             {
-                name: "Crazy Office: Slap and Smash!",
-                nameZh: "疯狂办公室：拍打与砸碎！",
-                slug: "crazy-office-slap-and-smash",
-                imageUrl: "https://imgs.crazygames.com/crazy-office-slap-and-smash_16x9/20250425071328/crazy-office-slap-and-smash_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/crazy-office-slap-and-smash" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["action", "casual"]
-            },
-            {
                 name: "Piece of Cake: Merge and Bake",
                 nameZh: "小菜一碟：合并与烘焙",
                 slug: "piece-of-cake-merge-and-bake",
@@ -447,76 +439,12 @@
                 categories: ["casual", "puzzle"]
             },
             {
-                name: "Doodle Road",
-                nameZh: "涂鸦之路",
-                slug: "doodle-road",
-                imageUrl: "https://imgs.crazygames.com/doodle-road_16x9/20240912101139/doodle-road_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/doodle-road" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual"]
-            },
-            {
-                name: "Zombie Horde: Build & Survive",
-                nameZh: "僵尸群：建造与生存",
-                slug: "zombie-horde-build-survive",
-                imageUrl: "https://imgs.crazygames.com/zombie-horde-build-survive_16x9/20250602073747/zombie-horde-build-survive_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/zombie-horde-build-survive" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["action"]
-            },
-            {
-                name: "Crazy Dummy Swing Multiplayer",
-                nameZh: "疯狂假人秋千多人游戏",
-                slug: "crazy-dummy-swing-multiplayer",
-                imageUrl: "https://imgs.crazygames.com/games/crazy-dummy-swing-multiplayer/cover_16x9-1747406523876.png?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/crazy-dummy-swing-multiplayer" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual"]
-            },
-            {
                 name: "Boom Karts",
                 nameZh: "爆炸卡丁车",
                 slug: "boom-karts",
                 imageUrl: "https://imgs.crazygames.com/boom-karts_16x9/20250522041619/boom-karts_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
                 embedUrl: '<iframe src="https://www.crazygames.com/embed/boom-karts" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
                 categories: ["driving"]
-            },
-            {
-                name: "Bad Cat - Granny's Return",
-                nameZh: "坏猫咪 - 老奶奶的回归",
-                slug: "bad-cat---granny-s-return",
-                imageUrl: "https://imgs.crazygames.com/bad-cat---granny-s-return_16x9/20250409102849/bad-cat---granny-s-return_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/bad-cat---granny-s-return" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual"]
-            },
-            {
-                name: "Dalgona Candy Honeycomb Cookie",
-                nameZh: "达尔戈纳糖蜂巢饼干",
-                slug: "dalgona-candy-honeycomb-cookie-kam",
-                imageUrl: "https://imgs.crazygames.com/dalgona-candy-honeycomb-cookie-kam_16x9/20250521050634/dalgona-candy-honeycomb-cookie-kam_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/dalgona-candy-honeycomb-cookie-kam" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual"]
-            },
-            {
-                name: "Snake VS Block",
-                nameZh: "蛇大战方块",
-                slug: "snake-vs-block",
-                imageUrl: "https://imgs.crazygames.com/snake-vs-block_16x9/20250528043518/snake-vs-block_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/snake-vs-block" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual"]
-            },
-            {
-                name: "Color Music Hop Ball Games",
-                nameZh: "彩色音乐跳跃球游戏",
-                slug: "color-music-hop-ball-games",
-                imageUrl: "https://imgs.crazygames.com/color-music-hop-ball-games_16x9/20250526055219/color-music-hop-ball-games_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/color-music-hop-ball-games" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual"]
-            },
-            {
-                name: "Empire City",
-                nameZh: "帝国城市",
-                slug: "empire-city",
-                imageUrl: "https://imgs.crazygames.com/empire-city_16x9/20250218035041/empire-city_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
-                embedUrl: '<iframe src="https://www.crazygames.com/embed/empire-city" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
-                categories: ["casual", "clicker"]
             },
             {
                 name: "Punchers",
@@ -529,12 +457,10 @@
         ];
 
         // 继续添加更多游戏
-        const moreGamesData = [
-            // ... 这里可以保留原来的游戏数据，但由于篇幅有限，现在不再复制
-        ];
+        const moreGamesData = [];
 
         // 将所有游戏合并，并移除已经在首页显示的游戏
-        const allGames = gamesData.filter(game => game.slug !== "crazy-office-slap-and-smash");
+        const allGames = gamesData.filter(game => game.slug !== "piece-of-cake-merge-and-bake");
         
         // 保存当前显示的游戏列表
         let currentGames = allGames;
