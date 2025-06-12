@@ -58,11 +58,55 @@
             width: 100%;
             max-width: 1024px;
             margin: 0 auto;
+            position: relative;
         }
         .game-iframe {
             width: 100%;
             height: 100%;
             border: none;
+        }
+        .game-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+            display: none;
+        }
+        .game-error-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #FF3B30;
+        }
+        .game-error-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .game-error-message {
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+        }
+        .retry-button {
+            background-color: #007AFF;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .retry-button:hover {
+            background-color: #0062CC;
         }
         .game-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -225,12 +269,28 @@
             </h2>
             <div class="game-container bg-apple-gray-200 dark:bg-apple-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <iframe 
+                    id="featured-game-iframe"
                     src="https://www.crazygames.com/embed/crazy-office-slap-and-smash" 
                     class="game-iframe"
                     title="Crazy Office: Slap and Smash!"
                     allow="fullscreen; gamepad *;"
                     loading="lazy">
                 </iframe>
+                <div id="featured-game-error" class="game-error">
+                    <div class="game-error-icon">⚠️</div>
+                    <div class="game-error-title">
+                        <span class="lang-en">Connection Issues</span>
+                        <span class="lang-zh hidden">连接问题</span>
+                    </div>
+                    <div class="game-error-message">
+                        <span class="lang-en">Oops, we're having troubles connecting you. Try reloading the game to solve the issue.</span>
+                        <span class="lang-zh hidden">糟糕，我们连接出现问题。请尝试重新加载游戏来解决此问题。</span>
+                    </div>
+                    <button id="featured-game-retry" class="retry-button">
+                        <span class="lang-en">Reload Game</span>
+                        <span class="lang-zh hidden">重新加载游戏</span>
+                    </button>
+                </div>
             </div>
             <div class="bg-white dark:bg-apple-gray-800 p-4 rounded-lg shadow-md mt-4">
                 <h3 class="text-xl font-bold">Crazy Office: Slap and Smash!</h3>
@@ -291,6 +351,21 @@
                 </div>
                 <div class="game-container bg-apple-gray-200 dark:bg-apple-gray-800 rounded-lg overflow-hidden mb-4">
                     <div id="game-iframe-container" class="w-full h-full"></div>
+                    <div id="modal-game-error" class="game-error">
+                        <div class="game-error-icon">⚠️</div>
+                        <div class="game-error-title">
+                            <span class="lang-en">Connection Issues</span>
+                            <span class="lang-zh hidden">连接问题</span>
+                        </div>
+                        <div class="game-error-message">
+                            <span class="lang-en">Oops, we're having troubles connecting you. Try reloading the game to solve the issue.</span>
+                            <span class="lang-zh hidden">糟糕，我们连接出现问题。请尝试重新加载游戏来解决此问题。</span>
+                        </div>
+                        <button id="modal-game-retry" class="retry-button">
+                            <span class="lang-en">Reload Game</span>
+                            <span class="lang-zh hidden">重新加载游戏</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -299,6 +374,10 @@
     <script>
         // 语言设置
         let currentLanguage = 'en';
+        
+        // 当前正在加载的游戏iframe
+        let currentGameIframe = null;
+        let currentGameSlug = null;
 
         // 切换语言
         function switchLanguage(lang) {
@@ -514,18 +593,114 @@
             const categoryNames = game.categories.map(category => getCategoryName(category)).join(' • ');
             document.getElementById('modal-game-categories').textContent = categoryNames;
             
-            const iframeContainer = document.getElementById('game-iframe-container');
-            iframeContainer.innerHTML = game.embedUrl;
+            // 隐藏错误提示
+            document.getElementById('modal-game-error').style.display = 'none';
+            
+            // 保存当前游戏信息
+            currentGameSlug = slug;
+            
+            // 加载游戏
+            loadGameInModal(game);
             
             document.getElementById('game-modal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
+        
+        // 函数：在模态框中加载游戏
+        function loadGameInModal(game) {
+            const iframeContainer = document.getElementById('game-iframe-container');
+            iframeContainer.innerHTML = game.embedUrl;
+            
+            // 获取新创建的iframe元素
+            currentGameIframe = iframeContainer.querySelector('iframe');
+            
+            // 添加错误处理
+            if (currentGameIframe) {
+                currentGameIframe.onerror = handleGameError;
+                currentGameIframe.onload = function() {
+                    // 游戏加载成功
+                    document.getElementById('modal-game-error').style.display = 'none';
+                };
+                
+                // 设置加载超时
+                setTimeout(function() {
+                    checkIframeLoaded(currentGameIframe);
+                }, 10000); // 10秒超时
+            }
+        }
+        
+        // 函数：检查iframe是否正确加载
+        function checkIframeLoaded(iframe) {
+            try {
+                // 尝试访问iframe内容，如果出错则表示跨域问题或加载失败
+                if (iframe && iframe.contentWindow && iframe.contentWindow.document) {
+                    // 成功访问到内容，无需处理
+                } else {
+                    // 无法访问内容，可能是跨域问题
+                    handleGameError();
+                }
+            } catch (e) {
+                // 捕获跨域错误
+                console.log("可能存在跨域限制，无法直接检测游戏加载状态");
+                // 这里不做处理，因为跨域错误不一定意味着游戏加载失败
+            }
+        }
+        
+        // 函数：处理游戏加载错误
+        function handleGameError() {
+            console.log("游戏加载失败");
+            document.getElementById('modal-game-error').style.display = 'flex';
+        }
+        
+        // 重试加载游戏
+        document.getElementById('modal-game-retry').addEventListener('click', function() {
+            if (currentGameSlug) {
+                const game = gamesData.find(g => g.slug === currentGameSlug);
+                if (game) {
+                    loadGameInModal(game);
+                }
+            }
+        });
+        
+        // 首页游戏错误处理
+        const featuredGameIframe = document.getElementById('featured-game-iframe');
+        if (featuredGameIframe) {
+            featuredGameIframe.onerror = function() {
+                document.getElementById('featured-game-error').style.display = 'flex';
+            };
+            
+            featuredGameIframe.onload = function() {
+                document.getElementById('featured-game-error').style.display = 'none';
+            };
+            
+            // 设置加载超时
+            setTimeout(function() {
+                checkIframeLoaded(featuredGameIframe);
+            }, 10000); // 10秒超时
+        }
+        
+        // 重试加载首页游戏
+        document.getElementById('featured-game-retry').addEventListener('click', function() {
+            const iframe = document.getElementById('featured-game-iframe');
+            if (iframe) {
+                // 重新加载iframe
+                const src = iframe.src;
+                iframe.src = '';
+                setTimeout(function() {
+                    iframe.src = src;
+                }, 100);
+                
+                document.getElementById('featured-game-error').style.display = 'none';
+            }
+        });
 
         // 关闭模态框
         document.querySelector('.close-modal').addEventListener('click', function() {
             document.getElementById('game-modal').style.display = 'none';
             document.body.style.overflow = 'auto';
             document.getElementById('game-iframe-container').innerHTML = '';
+            currentGameIframe = null;
+            currentGameSlug = null;
         });
 
         // 按类别筛选游戏
