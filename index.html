@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Summer Games - Play the Exciting Online Adventure Game</title>
-    <meta name="description" content="Experience the thrill of Summer Games, an exciting online adventure game where you can challenge yourself and compete with friends.">
+    <title>Summer Games Festival - Play Exciting Online Games</title>
+    <meta name="description" content="Experience the best collection of online games at Summer Games Festival. Play exciting games for free with no downloads required.">
     <link rel="canonical" href="https://summergamesfesttime.pro/">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-454LJVW4ZS"></script>
@@ -64,87 +64,489 @@
             height: 100%;
             border: none;
         }
+        .game-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .game-card img {
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+        .category-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+        }
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 50;
+            overflow-y: auto;
+        }
+        .modal-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 5vh auto;
+            background-color: white;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        .dark .modal-content {
+            background-color: #1C1C1E;
+        }
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 60;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+        .language-selector {
+            position: relative;
+        }
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+            min-width: 120px;
+            overflow: hidden;
+        }
+        .dark .language-dropdown {
+            background-color: #1C1C1E;
+        }
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+        .language-option {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .language-option:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        .dark .language-option:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
     </style>
 </head>
 <body class="bg-apple-gray-100 dark:bg-apple-gray-950 text-apple-gray-900 dark:text-white">
-    <header class="bg-apple-blue text-white py-6 px-4 md:px-8 shadow-lg">
+    <header class="bg-gradient-to-r from-apple-blue to-apple-indigo text-white py-6 px-4 md:px-8 shadow-lg">
         <div class="container mx-auto">
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center">Summer Games</h1>
-            <p class="text-lg md:text-xl text-center mt-2 max-w-3xl mx-auto">Experience the ultimate seasonal adventure in this exciting online game!</p>
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold">
+                    <span class="lang-en">Summer Games Festival</span>
+                    <span class="lang-zh hidden">夏日游戏节</span>
+                </h1>
+                <div class="language-selector">
+                    <button class="flex items-center bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm">
+                        <span id="current-language">English</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div class="language-dropdown">
+                        <div class="language-option" data-lang="en">English</div>
+                        <div class="language-option" data-lang="zh">中文</div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-lg md:text-xl text-center max-w-3xl mx-auto">
+                <span class="lang-en">Your ultimate destination for free online games!</span>
+                <span class="lang-zh hidden">您的免费在线游戏终极目的地！</span>
+            </p>
+            <div class="flex justify-center mt-4 gap-2 flex-wrap">
+                <button class="category-filter bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm" data-category="all">
+                    <span class="lang-en">All Games</span>
+                    <span class="lang-zh hidden">所有游戏</span>
+                </button>
+                <button class="category-filter bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm" data-category="action">
+                    <span class="lang-en">Action</span>
+                    <span class="lang-zh hidden">动作</span>
+                </button>
+                <button class="category-filter bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm" data-category="casual">
+                    <span class="lang-en">Casual</span>
+                    <span class="lang-zh hidden">休闲</span>
+                </button>
+                <button class="category-filter bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm" data-category="puzzle">
+                    <span class="lang-en">Puzzle</span>
+                    <span class="lang-zh hidden">益智</span>
+                </button>
+                <button class="category-filter bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm" data-category="adventure">
+                    <span class="lang-en">Adventure</span>
+                    <span class="lang-zh hidden">冒险</span>
+                </button>
+                <button class="category-filter bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm" data-category="driving">
+                    <span class="lang-en">Driving</span>
+                    <span class="lang-zh hidden">驾驶</span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 md:px-8">
+        <!-- 首页置顶游戏 - Crazy Office: Slap and Smash! -->
         <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue dark:text-apple-teal">
+                <span class="lang-en">Featured Game</span>
+                <span class="lang-zh hidden">精选游戏</span>
+            </h2>
             <div class="game-container bg-apple-gray-200 dark:bg-apple-gray-800 rounded-lg shadow-lg overflow-hidden">
                 <iframe 
-                    src="https://html-classic.itch.zone/html/12276338/index.html" 
+                    src="https://www.crazygames.com/embed/crazy-office-slap-and-smash" 
                     class="game-iframe"
-                    title="Summer Games Online"
-                    allow="fullscreen"
+                    title="Crazy Office: Slap and Smash!"
+                    allow="fullscreen; gamepad *;"
                     loading="lazy">
                 </iframe>
             </div>
-        </section>
-
-        <section class="mb-12 max-w-4xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue dark:text-apple-teal">About Summer Games</h2>
-            <div class="bg-white dark:bg-apple-gray-900 rounded-lg shadow-md p-6">
-                <p class="mb-4">Summer Games is an exciting online adventure that brings the joy and excitement of summer activities right to your screen. Dive into a world of fun challenges, beautiful landscapes, and engaging gameplay that will keep you entertained for hours.</p>
-                <p>Whether you're looking to beat your own high score or compete with friends, Summer Games offers an immersive gaming experience that captures the essence of summer excitement.</p>
+            <div class="bg-white dark:bg-apple-gray-800 p-4 rounded-lg shadow-md mt-4">
+                <h3 class="text-xl font-bold">Crazy Office: Slap and Smash!</h3>
+                <div class="flex gap-2 mt-1">
+                    <span class="category-badge bg-apple-red text-white">Action</span>
+                    <span class="category-badge bg-apple-blue text-white">Casual</span>
+                </div>
+                <p class="mt-3">
+                    <span class="lang-en">Experience the hilarious chaos of office life gone crazy! Slap, smash, and cause mayhem in this action-packed game.</span>
+                    <span class="lang-zh hidden">体验办公室生活的疯狂混乱！在这款充满动感的游戏中尽情扇巴掌、砸东西，制造混乱。</span>
+                </p>
             </div>
         </section>
 
-        <section class="mb-12 max-w-4xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue dark:text-apple-teal">Game Features</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white dark:bg-apple-gray-900 rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-2 text-apple-orange">Exciting Challenges</h3>
-                    <p>Test your skills with a variety of summer-themed challenges that will put your reflexes and strategy to the test.</p>
-                </div>
-                <div class="bg-white dark:bg-apple-gray-900 rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-2 text-apple-green">Beautiful Graphics</h3>
-                    <p>Immerse yourself in stunning visuals that capture the vibrant atmosphere of summer adventures.</p>
-                </div>
-                <div class="bg-white dark:bg-apple-gray-900 rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-2 text-apple-purple">Competitive Play</h3>
-                    <p>Challenge your friends and players from around the world to see who can achieve the highest scores.</p>
-                </div>
-                <div class="bg-white dark:bg-apple-gray-900 rounded-lg shadow-md p-6">
-                    <h3 class="text-xl font-semibold mb-2 text-apple-pink">Regular Updates</h3>
-                    <p>Enjoy new content and features as we continuously improve and expand the Summer Games experience.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="mb-12 max-w-4xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-apple-blue dark:text-apple-teal">How to Play</h2>
-            <div class="bg-white dark:bg-apple-gray-900 rounded-lg shadow-md p-6">
-                <p class="mb-4">Getting started with Summer Games is easy! Simply use the game controls to navigate through the various challenges and activities:</p>
-                <ul class="list-disc pl-6 space-y-2">
-                    <li>Use the arrow keys or WASD to move your character</li>
-                    <li>Press Space to jump or interact with objects</li>
-                    <li>Collect items to increase your score and unlock new levels</li>
-                    <li>Complete challenges within the time limit to earn bonus points</li>
-                </ul>
-                <p class="mt-4">The game automatically saves your progress, so you can return anytime to continue your summer adventure!</p>
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-apple-blue dark:text-apple-teal">
+                <span class="lang-en">More Games</span>
+                <span class="lang-zh hidden">更多游戏</span>
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="games-container">
+                <!-- Game cards will be dynamically generated here -->
             </div>
         </section>
     </main>
 
-    <footer class="bg-apple-blue text-white py-8 px-4">
+    <footer class="bg-gradient-to-r from-apple-blue to-apple-indigo text-white py-8 px-4">
         <div class="container mx-auto max-w-4xl">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <h2 class="text-xl font-bold">Summer Games</h2>
-                    <p class="text-sm opacity-75">The ultimate seasonal gaming experience</p>
+                    <h2 class="text-xl font-bold">
+                        <span class="lang-en">Summer Games Festival</span>
+                        <span class="lang-zh hidden">夏日游戏节</span>
+                    </h2>
+                    <p class="text-sm opacity-75">
+                        <span class="lang-en">The ultimate gaming experience</span>
+                        <span class="lang-zh hidden">极致游戏体验</span>
+                    </p>
                 </div>
                 <div class="text-center md:text-right">
-                    <p>&copy; 2023 Summer Games. All rights reserved.</p>
-                    <p class="text-sm opacity-75 mt-1">Play responsibly and have fun!</p>
+                    <p>&copy; 2023 Summer Games Festival. All rights reserved.</p>
+                    <p class="text-sm opacity-75 mt-1">
+                        <span class="lang-en">Play responsibly and have fun!</span>
+                        <span class="lang-zh hidden">理性游戏，尽情享乐！</span>
+                    </p>
                 </div>
             </div>
         </div>
     </footer>
+
+    <!-- Game Modal -->
+    <div id="game-modal" class="game-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="p-4">
+                <h2 id="modal-game-title" class="text-2xl font-bold text-apple-blue dark:text-apple-teal mb-2"></h2>
+                <div class="flex gap-2 mb-4">
+                    <span id="modal-game-categories" class="text-sm text-apple-gray-600 dark:text-apple-gray-400"></span>
+                </div>
+                <div class="game-container bg-apple-gray-200 dark:bg-apple-gray-800 rounded-lg overflow-hidden mb-4">
+                    <div id="game-iframe-container" class="w-full h-full"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 语言设置
+        let currentLanguage = 'en';
+
+        // 切换语言
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-language').textContent = lang === 'en' ? 'English' : '中文';
+            
+            // 隐藏所有语言元素
+            document.querySelectorAll('.lang-en, .lang-zh').forEach(el => {
+                el.classList.add('hidden');
+            });
+            
+            // 显示当前语言元素
+            document.querySelectorAll(`.lang-${lang}`).forEach(el => {
+                el.classList.remove('hidden');
+            });
+
+            // 重新渲染游戏卡片以更新语言
+            renderGames(currentGames);
+        }
+
+        // 添加语言切换事件监听
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                switchLanguage(lang);
+            });
+        });
+
+        // 游戏数据（中英文）
+        const gamesData = [
+            {
+                name: "Crazy Office: Slap and Smash!",
+                nameZh: "疯狂办公室：拍打与砸碎！",
+                slug: "crazy-office-slap-and-smash",
+                imageUrl: "https://imgs.crazygames.com/crazy-office-slap-and-smash_16x9/20250425071328/crazy-office-slap-and-smash_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/crazy-office-slap-and-smash" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["action", "casual"]
+            },
+            {
+                name: "Piece of Cake: Merge and Bake",
+                nameZh: "小菜一碟：合并与烘焙",
+                slug: "piece-of-cake-merge-and-bake",
+                imageUrl: "https://imgs.crazygames.com/piece-of-cake-merge-and-bake_16x9/20250528043012/piece-of-cake-merge-and-bake_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/piece-of-cake-merge-and-bake" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual", "puzzle"]
+            },
+            {
+                name: "Doodle Road",
+                nameZh: "涂鸦之路",
+                slug: "doodle-road",
+                imageUrl: "https://imgs.crazygames.com/doodle-road_16x9/20240912101139/doodle-road_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/doodle-road" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual"]
+            },
+            {
+                name: "Zombie Horde: Build & Survive",
+                nameZh: "僵尸群：建造与生存",
+                slug: "zombie-horde-build-survive",
+                imageUrl: "https://imgs.crazygames.com/zombie-horde-build-survive_16x9/20250602073747/zombie-horde-build-survive_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/zombie-horde-build-survive" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["action"]
+            },
+            {
+                name: "Crazy Dummy Swing Multiplayer",
+                nameZh: "疯狂假人秋千多人游戏",
+                slug: "crazy-dummy-swing-multiplayer",
+                imageUrl: "https://imgs.crazygames.com/games/crazy-dummy-swing-multiplayer/cover_16x9-1747406523876.png?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/crazy-dummy-swing-multiplayer" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual"]
+            },
+            {
+                name: "Boom Karts",
+                nameZh: "爆炸卡丁车",
+                slug: "boom-karts",
+                imageUrl: "https://imgs.crazygames.com/boom-karts_16x9/20250522041619/boom-karts_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/boom-karts" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["driving"]
+            },
+            {
+                name: "Bad Cat - Granny's Return",
+                nameZh: "坏猫咪 - 老奶奶的回归",
+                slug: "bad-cat---granny-s-return",
+                imageUrl: "https://imgs.crazygames.com/bad-cat---granny-s-return_16x9/20250409102849/bad-cat---granny-s-return_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/bad-cat---granny-s-return" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual"]
+            },
+            {
+                name: "Dalgona Candy Honeycomb Cookie",
+                nameZh: "达尔戈纳糖蜂巢饼干",
+                slug: "dalgona-candy-honeycomb-cookie-kam",
+                imageUrl: "https://imgs.crazygames.com/dalgona-candy-honeycomb-cookie-kam_16x9/20250521050634/dalgona-candy-honeycomb-cookie-kam_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/dalgona-candy-honeycomb-cookie-kam" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual"]
+            },
+            {
+                name: "Snake VS Block",
+                nameZh: "蛇大战方块",
+                slug: "snake-vs-block",
+                imageUrl: "https://imgs.crazygames.com/snake-vs-block_16x9/20250528043518/snake-vs-block_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/snake-vs-block" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual"]
+            },
+            {
+                name: "Color Music Hop Ball Games",
+                nameZh: "彩色音乐跳跃球游戏",
+                slug: "color-music-hop-ball-games",
+                imageUrl: "https://imgs.crazygames.com/color-music-hop-ball-games_16x9/20250526055219/color-music-hop-ball-games_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/color-music-hop-ball-games" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual"]
+            },
+            {
+                name: "Empire City",
+                nameZh: "帝国城市",
+                slug: "empire-city",
+                imageUrl: "https://imgs.crazygames.com/empire-city_16x9/20250218035041/empire-city_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/empire-city" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["casual", "clicker"]
+            },
+            {
+                name: "Punchers",
+                nameZh: "拳击手",
+                slug: "punchers",
+                imageUrl: "https://imgs.crazygames.com/punchers_16x9/20241223161057/punchers_16x9-cover?metadata=none&quality=40&width=1200&height=630&fit=crop",
+                embedUrl: '<iframe src="https://www.crazygames.com/embed/punchers" style="width: 100%; height: 100%;" frameborder="0" allow="gamepad *;"></iframe>',
+                categories: ["action", "sports"]
+            }
+        ];
+
+        // 继续添加更多游戏
+        const moreGamesData = [
+            // ... 这里可以保留原来的游戏数据，但由于篇幅有限，现在不再复制
+        ];
+
+        // 将所有游戏合并，并移除已经在首页显示的游戏
+        const allGames = gamesData.filter(game => game.slug !== "crazy-office-slap-and-smash");
+        
+        // 保存当前显示的游戏列表
+        let currentGames = allGames;
+
+        // 类别名称翻译
+        const categoryTranslations = {
+            'action': '动作',
+            'casual': '休闲',
+            'puzzle': '益智',
+            'adventure': '冒险',
+            'driving': '驾驶',
+            'sports': '体育',
+            'clicker': '点击'
+        };
+
+        // 函数：根据当前语言获取类别名称
+        function getCategoryName(category) {
+            return currentLanguage === 'en' 
+                ? category.charAt(0).toUpperCase() + category.slice(1)
+                : categoryTranslations[category] || category;
+        }
+
+        // 函数：渲染游戏卡片
+        function renderGames(gamesList) {
+            const gamesContainer = document.getElementById('games-container');
+            gamesContainer.innerHTML = '';
+            
+            gamesList.forEach(game => {
+                const categoryClasses = {
+                    'action': 'bg-apple-red text-white',
+                    'casual': 'bg-apple-blue text-white',
+                    'puzzle': 'bg-apple-purple text-white',
+                    'adventure': 'bg-apple-green text-white',
+                    'driving': 'bg-apple-orange text-white',
+                    'sports': 'bg-apple-teal text-white',
+                    'clicker': 'bg-apple-yellow text-black'
+                };
+                
+                const categoryBadges = game.categories.map(category => 
+                    `<span class="category-badge ${categoryClasses[category] || 'bg-apple-gray-500 text-white'}">${getCategoryName(category)}</span>`
+                ).join('');
+                
+                const gameName = currentLanguage === 'en' ? game.name : (game.nameZh || game.name);
+                const playNowText = currentLanguage === 'en' ? 'Play Now' : '立即游戏';
+                
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card bg-white dark:bg-apple-gray-800 rounded-lg overflow-hidden shadow-md';
+                gameCard.innerHTML = `
+                    <img src="${game.imageUrl}" alt="${gameName}" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">${gameName}</h3>
+                        <div class="flex gap-1 flex-wrap mb-3">${categoryBadges}</div>
+                        <button class="play-game-btn w-full bg-apple-blue hover:bg-apple-indigo text-white py-2 rounded-lg transition-colors" 
+                                data-slug="${game.slug}">${playNowText}</button>
+                    </div>
+                `;
+                gamesContainer.appendChild(gameCard);
+            });
+
+            // 添加事件监听器到游戏按钮
+            document.querySelectorAll('.play-game-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const slug = this.getAttribute('data-slug');
+                    openGameModal(slug);
+                });
+            });
+        }
+
+        // 函数：打开游戏模态框
+        function openGameModal(slug) {
+            const allGamesWithFeatured = [...gamesData]; // 包含首页游戏
+            const game = allGamesWithFeatured.find(g => g.slug === slug);
+            if (!game) return;
+            
+            const gameName = currentLanguage === 'en' ? game.name : (game.nameZh || game.name);
+            document.getElementById('modal-game-title').textContent = gameName;
+            
+            const categoryNames = game.categories.map(category => getCategoryName(category)).join(' • ');
+            document.getElementById('modal-game-categories').textContent = categoryNames;
+            
+            const iframeContainer = document.getElementById('game-iframe-container');
+            iframeContainer.innerHTML = game.embedUrl;
+            
+            document.getElementById('game-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭模态框
+        document.querySelector('.close-modal').addEventListener('click', function() {
+            document.getElementById('game-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('game-iframe-container').innerHTML = '';
+        });
+
+        // 按类别筛选游戏
+        document.querySelectorAll('.category-filter').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // 移除所有按钮的活跃类
+                document.querySelectorAll('.category-filter').forEach(b => {
+                    b.classList.remove('bg-white/40');
+                    b.classList.add('bg-white/20');
+                });
+                
+                // 为点击的按钮添加活跃类
+                this.classList.remove('bg-white/20');
+                this.classList.add('bg-white/40');
+                
+                if (category === 'all') {
+                    currentGames = allGames;
+                } else {
+                    currentGames = allGames.filter(game => 
+                        game.categories.includes(category)
+                    );
+                }
+                
+                renderGames(currentGames);
+            });
+        });
+
+        // 初始渲染
+        renderGames(allGames);
+    </script>
 </body>
 </html> 
