@@ -132,23 +132,33 @@
             z-index: 40;
             min-width: 120px;
             overflow: hidden;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         .dark .language-dropdown {
             background-color: #1C1C1E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .language-selector:hover .language-dropdown {
             display: block;
         }
         .language-option {
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1rem;
             cursor: pointer;
             transition: background-color 0.2s;
+            color: #1C1C1E;
+            font-weight: 500;
+        }
+        .dark .language-option {
+            color: #F2F2F7;
         }
         .language-option:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: #007AFF;
+            color: white;
         }
         .dark .language-option:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: #007AFF;
+            color: white;
         }
     </style>
 </head>
@@ -161,7 +171,7 @@
                     <span class="lang-zh hidden">夏日游戏节</span>
                 </h1>
                 <div class="language-selector">
-                    <button class="flex items-center bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-sm">
+                    <button class="flex items-center bg-white/30 hover:bg-white/40 px-4 py-2 rounded-full text-sm font-medium">
                         <span id="current-language">English</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
